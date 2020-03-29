@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const router = Router()
 
 
-const connection = require('../connection')
+const pool = require('../connection')
 
 // /api/auth/user
 router.get(
@@ -23,7 +23,7 @@ router.post(
 			const { email, password } = req.body 
 			
 			// GET USER
-			const userQuery = await connection.query(`SELECT * FROM user WHERE email = \'${email}\'`)
+			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
 			if (userQuery[0].length === 0) {
 				return res.status(500).json({"message": 'Пользователь не найден'}) 
 			}
@@ -66,19 +66,22 @@ router.post(
 // /api/auth/register
 router.post(
 	'/register',
-	(req, res) => {
-		res.status(201).json({ message: 'Пользователь создан' })
-	}
-)
-
-router.get(
-	'/qqq',
-	(req, res) => {
+	async (req, res) => {
 		try {
-			res.status(201).json({ message: 'Пользователь создан' })
+			const { email, password } = req.body
+			const query = await pool.query(`INSERT INTO user (\`email\`, \`password\`) VALUES (\'${email}\', \'${password}\');`)
+			const insertId = query[0].insertId
+
+			const token = jwt.sign(
+				{ userId: insertId },
+				config.get('jwtSecret'),
+				{ expiresIn: '1h' }
+			)
+
+			return res.status(200).json({token, userid: insertId})
 		} catch(e) {
-			res.status(201).json({ message: 'Пользователь создан' })
-		} 
+			return res.status(500).json({"message": 'Что-то не так'})
+		}
 	}
 )
 
