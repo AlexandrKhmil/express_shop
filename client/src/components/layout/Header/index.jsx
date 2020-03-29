@@ -9,15 +9,18 @@ class Header extends Component {
 
 		const guestLinks = (
 			<>
-				<li className="nav-item active">
-					<NavLink className="nav-link" to='/login'>Login</NavLink>
+				<li className="nav-item">
+					<NavLink className="nav-link" to="/login">Login</NavLink>
+				</li>
+				<li className="nav-item">
+					<NavLink className="nav-link" to="/register">Register</NavLink>
 				</li>
 			</>
 		)
 
 		const userLinks = (
 			<>
-				<li className="nav-item active">
+				<li className="nav-item">
 					<button className="nav-link btn btn-secondary btn-sm text-light" onClick={logout}>Logout</button>
 				</li>
 			</>
@@ -33,8 +36,8 @@ class Header extends Component {
 					<div className="container">
 						<div className="collapse navbar-collapse" id="header-nav">
 							<ul className="navbar-nav mr-auto">
-								<li className="nav-item active">
-									<NavLink className="nav-link" to='/'>Home</NavLink>
+								<li className="nav-item">
+									<NavLink className="nav-link" exact to='/'>Home</NavLink>
 								</li>
 							</ul>
 							<ul className="navbar-nav ml-auto">

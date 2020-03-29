@@ -12,6 +12,7 @@ import Footer from './layout/Footer'
 // PAGES
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 class App extends Component {
 	componentDidMount() {
@@ -26,6 +27,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Home} /> 
 						<Route path="/login" component={Login} /> 
+						<Route path="/register" component={Register} />
 					</Switch>
 					<Footer />
 				</Router>
