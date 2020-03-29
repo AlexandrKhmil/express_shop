@@ -1,6 +1,9 @@
 {
-  "host": "localhost",
-  "user": "root",
-  "password": "",
-  "database": "express_shop"
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "express_shop"
+  },
+  "jwtSecret": "jwtSecret"
 }

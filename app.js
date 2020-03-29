@@ -3,10 +3,7 @@ const path = require('path')
 const app = express()
 const port = 3000
 
-// MYSQL
-const mysql = require('mysql')
-const config = require('config') 
-const connection = mysql.createConnection(config)
+const connection = require('./connection')
 
 app.use(express.json({ extended: true }))
 
@@ -20,7 +17,7 @@ app.get('*', (req, res) => {
 })
 
 const start = async () => {
-	try { 
+	try {  
 		app.listen(port, () => console.log(`Port: ${port}`))  
 	} catch (e) {
 		console.log('Server Error', e.message)

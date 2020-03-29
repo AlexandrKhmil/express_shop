@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux' 
+import { login } from '../../../actions/auth'
 
 class Login extends Component {
 	state = {
@@ -10,11 +13,19 @@ class Login extends Component {
 	
 	onSubmit = (e) => {
 		e.preventDefault()
+		const { login } = this.props
+		const { email, password } = this.state
+		login(email, password)
 	}
 
 	render() {
 		const { onChange, onSubmit } = this
 		const { email, password } = this.state
+		const { isAuth } = this.props
+
+		if (isAuth) {
+			return <Redirect to="/" />
+		}
 
 		return (
 			<main>
@@ -53,4 +64,11 @@ class Login extends Component {
 	}
 }
 
-export default Login
+const mapStateToProps = state => ({
+	isAuth: state.auth.isAuth
+})
+
+export default connect(
+	mapStateToProps,
+	{ login }
+)(Login)

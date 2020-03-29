@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class Header extends Component {
 	render() {
+		const { isAuth } = this.props
+
+		const guestLinks = (
+			<li className="nav-item active">
+				<NavLink className="nav-link" to='/login'>Login</NavLink>
+			</li>
+		)
+
+		const userLinks = (
+			<li className="nav-item active">
+				<NavLink className="nav-link" to='/logout'>Logout</NavLink>
+			</li>
+		)
+
 		return (
 			<header>
 				<nav className="navbar navbar-expand-sm navbar-dark bg-primary">
@@ -18,9 +33,7 @@ class Header extends Component {
 								</li>
 							</ul>
 							<ul className="navbar-nav ml-auto">
-								<li className="nav-item active">
-									<NavLink className="nav-link" to='/login'>Login</NavLink>
-								</li>
+								{ !isAuth ? guestLinks : userLinks}
 							</ul>
 						</div>
 					</div> 
@@ -30,4 +43,11 @@ class Header extends Component {
 	}
 }
 
-export default Header
+const mapStateToProps = state => ({
+	isAuth: state.auth.isAuth
+})
+
+export default connect(
+	mapStateToProps,
+	{}
+)(Header)

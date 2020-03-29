@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import store from "../store" 
+import store from '../store'
+import { loadUser } from '../actions/auth' 
 
 // LAYOUT
 import Header from './layout/Header'
@@ -13,6 +14,10 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 
 class App extends Component {
+	componentDidMount() {
+		store.dispatch(loadUser())
+	}
+
 	render() {
 		return (
 			<Provider store={store}>
