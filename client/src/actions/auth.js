@@ -1,11 +1,25 @@
 import axios from 'axios'
 
 import {
+  USER_LOADING,
+  USER_LOADED,
   LOGIN_SUCCESS, 
   LOGIN_FAIL,
-  USER_LOADING,
-  USER_LOADED
 } from './types'
+
+// LOAD USER & CHECK TOKEN
+export const loadUser = () => (dispatch, getState) => {
+  dispatch({type: USER_LOADING})
+  axios
+    .get('/api/auth/user', tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      })
+    })
+    .catch(err => console.log(err))
+}
 
 // LOGIN USER
 export const login = (email, password) => dispatch => {
@@ -32,20 +46,6 @@ export const login = (email, password) => dispatch => {
     })
 }
 
-// LOAD USER & CHECK TOKEN
-export const loadUser = () => (dispatch, getState) => {
-  dispatch({type: USER_LOADING})
-  axios
-    .get('/api/auth/user', tokenConfig(getState))
-    .then(res => {
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data
-      })
-    })
-    .catch(err => console.log(err))
-}
-
 const tokenConfig = getState => {
   const token = getState().auth.token
   const config = {
@@ -55,7 +55,7 @@ const tokenConfig = getState => {
   }
 
   if (token) {
-    config.headers['authToken'] = token
+    config.headers['authorization'] = token
   }
 
   return config

@@ -10,8 +10,8 @@ const connection = require('../connection')
 router.get(
 	'/user',
 	async (req, res) => {
-		console.log(req.headers.authtoken)
-		return res.status(200).json({'message': '1'})
+		const decode = jwt.decode(req.headers.authorization, config.get('jwtSecret'))
+		return res.status(200).json({userId: decode['userid']})
 	}
 )
 
@@ -43,7 +43,7 @@ router.post(
 			
 			return res.json({ 
 				token, 
-				"userId": user.id 
+				"userid": user.id 
 			})
 		} catch(e) {
 			return res.status(500).json({"message": 'Что-то не так'})
