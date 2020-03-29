@@ -1,8 +1,9 @@
 import { 
+  USER_LOADING,
+  USER_LOADED,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  USER_LOADING,
-  USER_LOADED
+  LOGOUT_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -40,6 +41,14 @@ export default (state = initialState, action) => {
         ...state,
         token: null,
         isAuth: false,
+        isLoading: false
+      }
+    case LOGOUT_SUCCESS: 
+      return {
+        ...state,
+        token: null,
+        userid: null,
+        isAuth: null,
         isLoading: false
       }
     default:

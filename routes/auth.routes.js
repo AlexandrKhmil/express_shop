@@ -51,6 +51,18 @@ router.post(
 	}
 )
 
+// /api/auth/logout
+router.post(
+	'/logout',
+	async (req, res) => {
+		try {
+			return res.status(200).json({"message": 'ok'})
+		} catch(e) {
+			return res.status(500).json({"message": 'Что-то не так'})
+		} 
+	}
+)
+
 // /api/auth/register
 router.post(
 	'/register',

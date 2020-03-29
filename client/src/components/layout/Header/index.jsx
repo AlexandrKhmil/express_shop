@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { logout } from '../../../actions/auth'
 
 class Header extends Component {
 	render() {
-		const { isAuth } = this.props
+		const { isAuth, logout } = this.props
 
 		const guestLinks = (
-			<li className="nav-item active">
-				<NavLink className="nav-link" to='/login'>Login</NavLink>
-			</li>
+			<>
+				<li className="nav-item active">
+					<NavLink className="nav-link" to='/login'>Login</NavLink>
+				</li>
+			</>
 		)
 
 		const userLinks = (
-			<li className="nav-item active">
-				<NavLink className="nav-link" to='/logout'>Logout</NavLink>
-			</li>
+			<>
+				<li className="nav-item active">
+					<button className="nav-link btn btn-secondary btn-sm text-light" onClick={logout}>Logout</button>
+				</li>
+			</>
 		)
 
 		return (
@@ -49,5 +54,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{}
+	{ logout }
 )(Header)
