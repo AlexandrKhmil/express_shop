@@ -69,6 +69,7 @@ router.post(
 	async (req, res) => {
 		try {
 			const { email, password } = req.body
+			console.log(req)
 			const query = await pool.query(`INSERT INTO user (\`email\`, \`password\`) VALUES (\'${email}\', \'${password}\');`)
 			const insertId = query[0].insertId
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux' 
-// import { login } from '../../../actions/auth'
+import { register } from '../../../actions/auth'
 
 class Register extends Component {
 	state = {
@@ -14,9 +14,9 @@ class Register extends Component {
 	
 	onSubmit = (e) => {
 		e.preventDefault()
-		// const { login } = this.props
-		// const { email, password } = this.state
-		// login(email, password)
+		const { register } = this.props
+		const { email, password } = this.state
+		register(email, password)
 	}
 
 	render() {
@@ -32,7 +32,7 @@ class Register extends Component {
 			<main>
 				<div className="col-md-6 m-auto">
 					<div className="card mt-5">
-						<h4 className="card-header">Авторизация</h4>
+						<h4 className="card-header">Регистрация</h4>
 						<form className="card-body" onSubmit={onSubmit}>
 							<div className="form-group">
 								<label htmlFor="email">Email</label>
@@ -81,5 +81,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ }
+	{ register }
 )(Register)

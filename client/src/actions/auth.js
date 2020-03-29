@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS, 
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
 } from './types'
 
 // LOAD USER & CHECK TOKEN
@@ -54,6 +55,26 @@ export const logout = () => (dispatch, getState) => {
     .then(res => {
       dispatch({
         type: LOGOUT_SUCCESS
+      })
+    })
+    .catch(err => console.log(err))
+}
+
+// REGISTER 
+export const register = (email, password) => dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  const body = JSON.stringify({ email, password })
+
+  axios
+    .post('/api/auth/register', body, config)
+    .then(res => {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
       })
     })
     .catch(err => console.log(err))
