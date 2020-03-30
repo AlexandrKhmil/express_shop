@@ -21,6 +21,7 @@ import AlertTemplate from './layout/AlertTemplate'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Catalog from './pages/Catalog'
 
 // ALERT OPTIONS
 const alertOptions = {
@@ -47,6 +48,7 @@ class App extends Component {
 							<Route exact path="/" component={Home} /> 
 							<Route path="/login" component={Login} /> 
 							<Route path="/register" component={Register} />
+							<Route path="/catalog" component={Catalog} />
 						</Switch>
 						<Footer />
 					</Router>

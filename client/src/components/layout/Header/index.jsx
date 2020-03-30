@@ -39,6 +39,9 @@ class Header extends Component {
 								<li className="nav-item">
 									<NavLink className="nav-link" exact to='/'>Home</NavLink>
 								</li>
+								<li className="nav-item">
+									<NavLink className="nav-link" exact to='/catalog'>Catalog</NavLink>
+								</li>
 							</ul>
 							<ul className="navbar-nav ml-auto">
 								{ !isAuth ? guestLinks : userLinks}

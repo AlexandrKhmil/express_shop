@@ -47,7 +47,7 @@ router.post(
 				{ expiresIn: '1h' }
 			)
 
-			return res.status(200).json({ token, userId: insertId })
+			return res.status(200).json({ token, email })
 		} catch(e) {
 			return res.status(500).json({ message: 'Что-то не так' })
 		}
@@ -94,10 +94,7 @@ router.post(
 				{ expiresIn: '1h' }
 			)
 
-			return res.status(200).json({ 
-				token, 
-				userId: user.id 
-			})
+			return res.status(200).json({ token, email })
 		} catch(e) {
 			return res.status(500).json({ message: 'Что-то не так' })
 		}
@@ -117,7 +114,9 @@ router.get(
 				return res.status(400).json({ message: 'Ошибка токена. Несуществующий пользователь' }) 
 			}
 
-			return res.status(200).json({ userId: decode.userId })
+			const email = userQuery[0][0].email
+
+			return res.status(200).json({ email })
 		} catch (e) {
 			return res.status(500).json({ message: 'Ошибка токена' })
 		} 
