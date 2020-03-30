@@ -17,6 +17,7 @@ router.post(
 	async (req, res) => {
 		try {
 			const errors = validationResult(req)
+
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
 					errors: errors.array(),
@@ -27,8 +28,9 @@ router.post(
 			const { email, password } = req.body
 			
 			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
+			
 			if (userQuery[0].length !== 0) {
-				return res.status(400).json({message: 'Пользователь с таким email уже существует'}) 
+				return res.status(400).json({ message: 'Пользователь с таким email уже существует' }) 
 			}
 
 			const hashedPassword = await bcrypt.hash(password, 12)
@@ -45,25 +47,10 @@ router.post(
 				{ expiresIn: '1h' }
 			)
 
-			return res.status(200).json({token, userId: insertId})
+			return res.status(200).json({ token, userId: insertId })
 		} catch(e) {
-			return res.status(500).json({message: 'Что-то не так'})
+			return res.status(500).json({ message: 'Что-то не так' })
 		}
-	}
-)
-
-
-
-
-
-
-// /api/auth/user
-router.get(
-	'/user',
-	async (req, res) => {
-		return res.status(400).json({ userId: 1 })
-		// const decode = jwt.decode(req.headers.authorization, config.get('jwtSecret'))
-		// return res.status(200).json({userId: decode['userId']})
 	}
 )
 
@@ -77,6 +64,7 @@ router.post(
 	async (req, res) => {
 		try {
 			const errors = validationResult(req)
+
 			if (!errors.isEmpty()) {
 				return res.status(500).json({
 					errors: errors.array(),
@@ -84,49 +72,70 @@ router.post(
 				})
 			}
 
-			return res.status(200).json({message: 'ok'})
+			const { email, password } = req.body 
 
-			// const { email, password } = req.body 
-			
-			// // GET USER
-			// const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
-			// if (userQuery[0].length === 0) {
-			// 	return res.status(500).json({"message": 'Пользователь не найден'}) 
-			// }
-			// const user = userQuery[0][0]
+			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
 
-			// // CHECK PASSWORD
-			// if (user.password !== password) {
-			// 	return res.status(500).json({"message": 'Неверный пароль'})
-			// }
+			if (userQuery[0].length === 0) {
+				return res.status(500).json({ message: 'Пользователь не найден' }) 
+			}
 
-			// // GET TOKEN
-			// const token = jwt.sign(
-			// 	{ userId: user.id },
-			// 	config.get('jwtSecret'),
-			// 	{ expiresIn: '1h' }
-			// )
-			
-			// return res.json({ 
-			// 	token, 
-			// 	"userId": user.id 
-			// })
+			const user = userQuery[0][0]
+
+			const isMatch = await bcrypt.compare(password, user.password)
+
+			if (!isMatch) {
+				return res.status(500).json({ message: 'Неверный пароль попробуйте снова' })
+			}
+
+			const token = jwt.sign(
+				{ userId: user.id },
+				config.get('jwtSecret'),
+				{ expiresIn: '1h' }
+			)
+
+			return res.status(200).json({ 
+				token, 
+				userId: user.id 
+			})
 		} catch(e) {
-			return res.status(500).json({message: 'Что-то не так'})
+			return res.status(500).json({ message: 'Что-то не так' })
 		}
 	}
 )
 
-// /api/auth/logout
-router.post(
-	'/logout',
+// /api/auth/user
+router.get(
+	'/user',
 	async (req, res) => {
 		try {
-			return res.status(200).json({"message": 'ok'})
-		} catch(e) {
-			return res.status(500).json({"message": 'Что-то не так'})
+			const decode = jwt.decode(req.headers.authorization, config.get('jwtSecret'))
+
+			const userQuery = await pool.query(`SELECT * FROM user WHERE id = \'${decode.userId}\';`) 
+
+			if (userQuery[0].length === 0) {
+				return res.status(400).json({ message: 'Ошибка токена. Несуществующий пользователь' }) 
+			}
+
+			return res.status(200).json({ userId: decode.userId })
+		} catch (e) {
+			return res.status(500).json({ message: 'Ошибка токена' })
 		} 
 	}
 )
+
+
+
+// // /api/auth/logout
+// router.post(
+// 	'/logout',
+// 	async (req, res) => {
+// 		try {
+// 			return res.status(200).json({"message": 'ok'})
+// 		} catch(e) {
+// 			return res.status(500).json({"message": 'Что-то не так'})
+// 		} 
+// 	}
+// )
 
 module.exports = router

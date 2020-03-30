@@ -1,10 +1,12 @@
 import { 
   USER_LOADING,
   USER_LOADED,
+  AUTH_ERROR,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL, 
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS
+  LOGOUT, 
 } from '../actions/types'
 
 const initialState = {
@@ -37,8 +39,10 @@ export default (state = initialState, action) => {
         isAuth: true,
         isLoading: false
       }
+    case AUTH_ERROR:
+    case REGISTER_FAIL:
     case LOGIN_FAIL:
-    case LOGOUT_SUCCESS:
+    case LOGOUT:
       localStorage.removeItem('token') 
       return {
         ...state,
