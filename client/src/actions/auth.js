@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { returnErrors } from './error'
 import {
   USER_LOADING,
   USER_LOADED,
@@ -36,17 +36,14 @@ export const loadUser = () => (dispatch, getState) => {
       })
     })
     .catch(err => {
-      dispatch({
-        type: AUTH_ERROR
-      })
-      console.log(err)
-      console.log(err.response)
+      dispatch({ type: AUTH_ERROR })
+      dispatch(returnErrors(err.response.data.message, err.response.status))
     })
 }
 
 // REGISTER 
 export const register = (email, password) => dispatch => {
-  const { body, config } = jsonReqest({ email, password })
+  let { body, config } = jsonReqest({ email, password })
   axios
     .post('/api/auth/register', body, config)
     .then(res => {
@@ -57,8 +54,7 @@ export const register = (email, password) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: REGISTER_FAIL })
-      console.log(err)
-      console.log(err.response)
+      dispatch(returnErrors(err.response.data.message, err.response.status))
     })
 }
 
@@ -75,7 +71,7 @@ export const login = (email, password) => dispatch => {
     }) 
     .catch(err => { 
       dispatch({ type: LOGIN_FAIL })
-      console.log(err.response)
+      dispatch(returnErrors(err.response.data.message, err.response.status))
     })
 }
 

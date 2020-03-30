@@ -11,8 +11,8 @@ const pool = require('../connection')
 router.post(
 	'/register',
 	[
-		check('email', 'Некорректный email').isEmail(),
-		check('password', 'Минимальная длина пароля - 6 символов').isLength({ min: 6 })
+		check('email', 'Некорректный email').normalizeEmail().isEmail(),
+		check('password', 'Минимальная длина пароля - 6 символов').exists().isLength({ min: 6 })
 	],
 	async (req, res) => {
 		try {
@@ -23,11 +23,11 @@ router.post(
 					errors: errors.array(),
 					message: 'Некорректные данные при регистрации'
 				})
-			}
+			} 
 
 			const { email, password } = req.body
 			
-			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
+			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`) 
 			
 			if (userQuery[0].length !== 0) {
 				return res.status(400).json({ message: 'Пользователь с таким email уже существует' }) 
