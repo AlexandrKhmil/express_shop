@@ -47,7 +47,6 @@ export const register = (email, password) => dispatch => {
 
 
 
-
 // LOAD USER & CHECK TOKEN  
 export const loadUser = () => (dispatch, getState) => {
   dispatch({type: USER_LOADING})

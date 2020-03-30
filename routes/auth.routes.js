@@ -1,10 +1,10 @@
 const { Router } = require('express')
 const { check, validationResult } = require('express-validator')
-const config = require('config')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = Router()
 
-
+const config = require('config')
 const pool = require('../connection')
 
 // /api/auth/register
@@ -25,8 +25,20 @@ router.post(
 			}
 
 			const { email, password } = req.body
-			const query = await pool.query(`INSERT INTO user (\`email\`, \`password\`) VALUES (\'${email}\', \'${password}\');`)
+			
+			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`)
+			if (userQuery[0].length !== 0) {
+				return res.status(400).json({message: 'Пользователь с таким email уже существует'}) 
+			}
+
+			const hashedPassword = await bcrypt.hash(password, 12)
+
+			const query = await pool.query(
+				`INSERT INTO user (\`email\`, \`password\`) VALUES (\'${email}\', \'${hashedPassword}\');`
+			)
+
 			const insertId = query[0].insertId
+
 			const token = jwt.sign(
 				{ userId: insertId },
 				config.get('jwtSecret'),
@@ -35,7 +47,7 @@ router.post(
 
 			return res.status(200).json({token, userId: insertId})
 		} catch(e) {
-			return res.status(500).json({"message": 'Что-то не так'})
+			return res.status(500).json({message: 'Что-то не так'})
 		}
 	}
 )
