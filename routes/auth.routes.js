@@ -11,7 +11,7 @@ router.get(
 	'/user',
 	async (req, res) => {
 		const decode = jwt.decode(req.headers.authorization, config.get('jwtSecret'))
-		return res.status(200).json({userId: decode['userid']})
+		return res.status(200).json({userId: decode['userId']})
 	}
 )
 
@@ -43,7 +43,7 @@ router.post(
 			
 			return res.json({ 
 				token, 
-				"userid": user.id 
+				"userId": user.id 
 			})
 		} catch(e) {
 			return res.status(500).json({"message": 'Что-то не так'})
@@ -69,7 +69,6 @@ router.post(
 	async (req, res) => {
 		try {
 			const { email, password } = req.body
-			console.log(req)
 			const query = await pool.query(`INSERT INTO user (\`email\`, \`password\`) VALUES (\'${email}\', \'${password}\');`)
 			const insertId = query[0].insertId
 
@@ -79,7 +78,7 @@ router.post(
 				{ expiresIn: '1h' }
 			)
 
-			return res.status(200).json({token, userid: insertId})
+			return res.status(200).json({token, userId: insertId})
 		} catch(e) {
 			return res.status(500).json({"message": 'Что-то не так'})
 		}
