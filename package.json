@@ -15,7 +15,8 @@
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "mysql2": "^2.1.0"
+    "mysql2": "^2.1.0",
+    "node-mysql-admin": "^0.1.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
