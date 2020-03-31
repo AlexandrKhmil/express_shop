@@ -14,3 +14,6 @@ export const GET_ERRORS = 'GET_ERRORS'
 
 // CATALOG
 export const PRODUCTS_LOADED = 'PRODUCTS_LOADED'
+
+// MODAL
+export const OPEN_CART = 'OPEN_CART'

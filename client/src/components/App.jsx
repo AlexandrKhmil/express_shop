@@ -19,6 +19,7 @@ import Header from './layout/Header'
 import Footer from './layout/Footer'
 import Alerts from './layout/Alerts'
 import AlertTemplate from './layout/AlertTemplate'
+import CartButton from './layout/CartButton'
 
 // PAGES
 import Home from './pages/Home'
@@ -49,6 +50,7 @@ class App extends Component {
 					<Router>
 						<Header />
 						<Alerts />
+						<CartButton />
 						<Switch>
 							<Route exact path="/" component={Home} /> 
 							<Route path="/login" component={Login} /> 
