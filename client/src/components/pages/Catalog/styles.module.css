@@ -1,4 +1,55 @@
-.classA{
-  height: 100px;
-  background-color: aqua;
+.productBlock {
+  height: 100%;
+}
+
+.hoverShadow:hover {
+  box-shadow: 0 0 11px #78C2AD; 
+}
+
+.img{
+  max-width: 100%;
+  height: 250px;
+  object-fit: contain;
+}
+
+.buttonText {
+  font-size: 14px;
+}
+
+@media (max-width: 991px) {
+  .buttonText {
+    font-size: 10px;
+  } 
+}
+
+@media (max-width: 767px) {
+  .buttonText {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  .productBlock {
+    height: auto;
+  }
+
+  .img {
+    height: auto;
+  }
+  
+  .buttonText {
+    font-size: 12px;
+  }
+
+  .productName {
+    font-size: 14px;
+  }
+
+  .btnGoTo {
+    display: none;
+  }
+
+  .btnToCart {
+    width: 100%
+  }
 }

@@ -2,7 +2,7 @@
   "db": {
     "host": "localhost",
     "user": "root",
-    "password": "root",
+    "password": "",
     "database": "express_shop",
     "waitForConnections": true,
     "connectionLimit": 10,
