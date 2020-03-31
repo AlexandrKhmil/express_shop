@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styles from './styles.module.css' 
+import { openCart } from '../../../actions/modal'
 
 class CartButton extends Component {
   render() {
-    const { className } = this.props
+    const { openCart, className } = this.props
 
     return (
       <button 
         className={
           `btn btn-secondary ml-1 ${styles.cartButton} ${className}` 
         }
+        onClick={openCart}
       > 
         <img className={styles.img} src={require('../../../../static/other/shopping-cart.svg')} />
       </button>
@@ -17,6 +20,4 @@ class CartButton extends Component {
   }
 }
 
-export default CartButton
-
-// btn btn-outline-primary 
+export default connect(state => ({}), { openCart })(CartButton)
