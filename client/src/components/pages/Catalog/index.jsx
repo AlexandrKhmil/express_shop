@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 
 class Catalog extends Component {
   render() {
-    const { products } = this.props
+    const { products } = this.props 
     
     return (
       <main>
@@ -13,7 +13,7 @@ class Catalog extends Component {
           <div className="row">
             { 
               products.map((product, indx) => 
-                <div className="col-6 col-xl-3 col-md-4 mb-3" key={indx}>
+                <div className="col-6 col-xl-3 col-md-4 mb-4" key={indx}>
                   <div 
                     className={`card border-primary d-flex align-items-start p-4 ${styles.productBlock} ${styles.hoverShadow}`}
                   >
@@ -43,7 +43,7 @@ class Catalog extends Component {
                         to={`/product/${product.id}`}
                       >
                         Перейти
-                      </NavLink>
+                      </NavLink> 
                     </div>
                   </div>
                 </div>

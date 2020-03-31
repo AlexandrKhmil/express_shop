@@ -17,4 +17,4 @@ export const PRODUCTS_LOADED = 'PRODUCTS_LOADED'
 
 // MODAL
 export const OPEN_CART = 'OPEN_CART'
-export const CLOSE_MODAL = 'CLOSE_MODAL'
+export const CLOSE_CART = 'CLOSE_MODAL'

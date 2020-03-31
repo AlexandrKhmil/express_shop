@@ -1,6 +1,6 @@
 import { 
 	OPEN_CART, 
-	CLOSE_MODAL,
+	CLOSE_CART,
 } from '../actions/types'
 
 const initialState = {
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
 					status: true,
 				},
 			}
-		case CLOSE_MODAL:
+		case CLOSE_CART:
 			document.body.removeAttribute('style')  
 			return {
 				...state,

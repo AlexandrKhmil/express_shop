@@ -1,12 +1,12 @@
 import { 
   OPEN_CART, 
-  CLOSE_MODAL,
+  CLOSE_CART,
 } from './types'
 
 export const openCart = () => dispatch => {
   dispatch({ type: OPEN_CART })
 }
 
-export const closeModal = () => dispatch => {
-  dispatch({ type: CLOSE_MODAL })
+export const closeCart = () => dispatch => {
+  dispatch({ type: CLOSE_CART })
 }
