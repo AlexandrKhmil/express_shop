@@ -8,5 +8,5 @@ export default combineReducers({
   auth,
   error,
   product,
-  modal,
+  modal, 
 })

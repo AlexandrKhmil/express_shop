@@ -43,7 +43,7 @@ class App extends Component {
 		store.dispatch(loadProducts())
 	}
 
-	render() {
+	render() { 
 		return (
 			<Provider store={store}>
 				<AlertProvider template={AlertTemplate} {...alertOptions}>
