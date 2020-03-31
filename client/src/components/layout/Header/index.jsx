@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../../../actions/auth'
+import styles from './styles.module.css'
+import CartButton from '../CartButton'
 
 class Header extends Component {
 	render() {
@@ -27,8 +29,8 @@ class Header extends Component {
 		)
 
 		return (
-			<header>
-				<nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+			<header className="pt-4">
+				<nav className="navbar navbar-expand-sm navbar-dark bg-primary fixed-top">
 					<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-nav" aria-controls="header-nav" aria-expanded="false" aria-label="Toggle navigation">
 						<span className="navbar-toggler-icon"></span>
 					</button>
@@ -47,6 +49,7 @@ class Header extends Component {
 								{ !isAuth ? guestLinks : userLinks}
 							</ul>
 						</div>
+						<CartButton className={styles.cartButton} />
 					</div> 
 				</nav>
 			</header>

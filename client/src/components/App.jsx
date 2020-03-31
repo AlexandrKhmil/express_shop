@@ -49,8 +49,7 @@ class App extends Component {
 				<AlertProvider template={AlertTemplate} {...alertOptions}>
 					<Router>
 						<Header />
-						<Alerts />
-						<CartButton />
+						<Alerts /> 
 						<Switch>
 							<Route exact path="/" component={Home} /> 
 							<Route path="/login" component={Login} /> 

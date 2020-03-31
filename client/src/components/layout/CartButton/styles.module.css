@@ -1,17 +1,19 @@
 .cartButton {
-  position: fixed;
-  z-index: 1050;
-  top: 80px;
-  right: 50px;
-  bottom: auto;
-  left: auto;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
   width: 50px;
   height: 50px; 
   border-radius: 50%;
-
-  background-image: url('../../../../static/other/shopping-cart.svg');
 }
+
+.img {
+  width: 50%;
+  height: 50%;
+  /* transition: filter .15s; */
+}
+
+/* .cartButton:hover .img {
+  filter: brightness(10000%); 
+} */
