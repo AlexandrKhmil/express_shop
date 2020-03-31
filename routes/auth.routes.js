@@ -1,9 +1,8 @@
 const { Router } = require('express')
+const router = Router()
 const { check, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const router = Router()
-
 const config = require('config')
 const pool = require('../connection')
 

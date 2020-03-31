@@ -19,6 +19,7 @@
     "node-mysql-admin": "^0.1.8"
   },
   "devDependencies": {
+    "file-loader": "^6.0.0",
     "nodemon": "^2.0.2"
   }
 }

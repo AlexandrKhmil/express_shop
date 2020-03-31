@@ -9,7 +9,10 @@ import {
 } from 'react-alert'
 // import AlertTemplate from 'react-alert-template-basic'
 import store from '../store'
+
+// ACTIONS
 import { loadUser } from '../actions/auth' 
+import { loadProducts } from '../actions/product'
 
 // LAYOUT
 import Header from './layout/Header'
@@ -22,6 +25,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Catalog from './pages/Catalog'
+import Product from './pages/Product'
 
 // ALERT OPTIONS
 const alertOptions = {
@@ -34,7 +38,8 @@ class App extends Component {
 	componentDidMount() {
 		if (store.getState().auth.token){
 			store.dispatch(loadUser())
-		} 
+		}
+		store.dispatch(loadProducts())
 	}
 
 	render() {
@@ -49,6 +54,7 @@ class App extends Component {
 							<Route path="/login" component={Login} /> 
 							<Route path="/register" component={Register} />
 							<Route path="/catalog" component={Catalog} />
+							<Route path="/product/:productId" component={Product} /> 
 						</Switch>
 						<Footer />
 					</Router>
