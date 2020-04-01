@@ -132,7 +132,7 @@ class Product extends Component {
 															</div>
 														</form>
 													</div>  
-												: <p>Для возможности оставлять комментарии <NavLink to="/login">авторизируйтесь</NavLink>.</p>
+												: <p>Для возможности оставить отзыв <NavLink to="/login">авторизируйтесь</NavLink>.</p>
 										}
 										
 										{
