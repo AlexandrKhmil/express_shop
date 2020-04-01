@@ -84,7 +84,11 @@ class Cart extends Component {
 									)
 								}
 							</div>
-							<div className={`d-flex justify-content-between align-items-center px-3 ${styles.total}`}>
+							<div className={`border-top d-flex justify-content-between align-items-center px-3 ${styles.total}`}>
+								<span>Кол-во товаров:</span>
+								<span>{Object.values(products).reduce((prev, product) => prev + product.count, 0)}</span>
+							</div> 
+							<div className={`border-top d-flex justify-content-between align-items-center px-3 ${styles.total}`}>
 								<span>Всего:</span>
 								<span>{products.reduce((prev, product) => prev + product.price * product.count, 0).toFixed(2)} $</span>
 							</div>

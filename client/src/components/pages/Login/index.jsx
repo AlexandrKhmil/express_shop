@@ -54,7 +54,7 @@ class Login extends Component {
 								/>
 							</div>
 							<div className="form-group">
-								<button type="submit" className="btn btn-primary ml-auto">Войти</button>
+								<button type="submit" className="btn btn-primary">Войти</button>
 							</div>
 						</form> 
 					</div>

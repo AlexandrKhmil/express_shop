@@ -23,13 +23,13 @@ class Header extends Component {
 		const userLinks = (
 			<>
 				<li className="nav-item">
-					<button className="nav-link btn btn-secondary btn-sm text-light" onClick={logout}>Logout</button>
+					<button className="nav-link btn btn-secondary btn-sm text-light mr-3" onClick={logout}>Logout</button>
 				</li>
 			</>
 		)
 
 		return (
-			<header className="pt-4">
+			<header className="pt-5 mb-4">
 				<nav className="navbar navbar-expand-sm navbar-dark bg-primary fixed-top">
 					<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-nav" aria-controls="header-nav" aria-expanded="false" aria-label="Toggle navigation">
 						<span className="navbar-toggler-icon"></span>

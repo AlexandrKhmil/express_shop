@@ -8,6 +8,10 @@
   border-radius: 50%;
 }
 
+.cartButton:hover .count {
+  background-color: #4eb7cd;
+}
+
 .img {
   width: 50%;
   height: 50%;
@@ -17,3 +21,18 @@
 /* .cartButton:hover .img {
   filter: brightness(10000%); 
 } */
+
+.count {
+  position: absolute;
+  left: -5px;
+  bottom: -5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #6CC3D5;
+  font-size: 12px;
+  transition: all .15s;
+}
