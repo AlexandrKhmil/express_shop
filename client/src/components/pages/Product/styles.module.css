@@ -2,3 +2,9 @@
   max-height: 20em;
   object-fit: contain;
 }
+
+.commentIndx {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}

@@ -2,25 +2,46 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addToCart } from '../../../actions/modal'
+import { loadComments, addComment } from '../../../actions/comment'
 import styles from './styles.module.css'
 
 class Product extends Component {
 	state = {
 		userComment: '',
+		commentsLimit: 5,
 	}
 
 	onChange = e => this.setState({ [e.target.name]: e.target.value })
 
 	sendMessage = (e) => {
-		e.preventDefault()
+		e.preventDefault() 
+		const message = this.state.userComment
+		const { addComment } = this.props
+		const { email } = this.props.user
+		const { productId } = this.props.match.params
+		addComment(email, message, productId) 
+	}
+
+	loadMore = () => {
+		this.setState({
+			...this.state,
+			commentsLimit: this.state.commentsLimit + 5,
+		})
+	}
+
+	componentDidMount = () => {
+		const { loadComments } = this.props
+		const { productId } = this.props.match.params
+		loadComments(productId)
 	}
 
 	render() {
-		const { onChange, sendMessage } = this
-		const { userComment } = this.state
-		const { products, user, addToCart } = this.props
+		const { onChange, sendMessage, loadMore } = this
+		const { userComment, commentsLimit } = this.state
+		const { products, user, allComments, addToCart } = this.props
 		const { productId } = this.props.match.params
 		const product = products.find(item => item.id === parseInt(productId))
+		const comments = allComments[productId] !== undefined ? Object.values(allComments[productId]) : [] 
 		return (
 			<main> 
 				<div className="container mt-5">
@@ -91,7 +112,7 @@ class Product extends Component {
 										<h4 className="card-title">Отзывы:</h4>
 										{
 											user 
-												? <div className="card card-body border-primary">
+												? <div className="card card-body border-primary mb-3">
 														<form onSubmit={sendMessage}>
 															<div className="form-group">
 																<label htmlFor="userComment">Написать комментарий:</label>
@@ -114,7 +135,35 @@ class Product extends Component {
 												: <p>Для возможности оставлять комментарии <NavLink to="/login">авторизируйтесь</NavLink>.</p>
 										}
 										
-										<p>Тут будут комментарии</p> 
+										{
+											comments.slice(0, commentsLimit).map((comment, key) => 
+												<div className="card card-body border-primary mb-3" key={key}>
+													<span className={styles.commentIndx}>#{key + 1}</span>
+													<h4 className="card-title mb-1">{comment.email}:</h4>
+													<span className="small text-primary mb-2">{(() => {
+														let date = product.publicationDate.split('T')[0].split('-')
+														return `${date[2]}.${date[1]}.${date[0]}`	
+													})()}</span>
+													<p className="card-text">
+														{comment.message}
+													</p>
+												</div>
+											)
+										}
+										
+										{
+											commentsLimit < comments.length 
+												?	<div className="d-flex justify-content-center">
+														<button
+															className="btn btn-primary"
+															onClick={loadMore}
+														>
+															Загрузить еще
+														</button>
+													</div>
+												: null
+										} 
+										
 									</div>
 								</div> 
 							</>
@@ -129,6 +178,7 @@ class Product extends Component {
 const mapStateToProps = state => ({
 	products: state.product.products,
 	user: state.auth.user,
+	allComments: state.comment
 })
 
-export default connect(mapStateToProps, { addToCart })(Product)
+export default connect(mapStateToProps, { addToCart, loadComments, addComment })(Product)
