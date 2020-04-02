@@ -119,7 +119,7 @@ class Product extends Component {
 											<ul className="list-group list-group-flush">
 												<li className="list-group-item d-flex justify-content-between">
 													<span>Автор:</span>
-													<span></span>
+													<span>{product.authorName}</span>
 												</li>
 												<li className="list-group-item d-flex justify-content-between">
 													<span>Дата публикации:</span>

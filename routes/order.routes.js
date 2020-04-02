@@ -1,32 +1,15 @@
 const { Router } = require('express')
 const router = Router()
-const pool = require('../connection')
+const { check, validationResult } = require('express-validator')
 const config = require('config')
+const pool = require('../connection')
 
-// api/product/catalog
-router.get(
-	'/catalog',
-	async (req, res) => {
-		try {
-			const productQuery = await pool.query(`
-				SELECT product.*, author.name as authorName
-					FROM product
-						INNER JOIN author ON product.authorId = author.id;
-			`)
-			const products = productQuery[0]
-			return res.status(200).json({ ...products })
-		} catch (e) {
-			return res.status(500).json({ message: 'Ошибка получения каталога!' })
-		}
-	}
-)
-
-// api/product/vote
+// api/order/add
 router.post(
 	'/vote',
 	async (req, res) => {
 		try {
-			const { email, value, productId } = req.body 
+			const { email, products } = req.body 
 
 			const userQuery = await pool.query(`SELECT * FROM user WHERE email = \'${email}\';`) 
 
@@ -36,7 +19,7 @@ router.post(
 
 			pool.query(`
 				INSERT INTO vote (userId, productId, value) 
-				VALUES (${userQuery[0][0].id}, ${productId}, ${value});
+				  VALUES (${userQuery[0][0].id}, ${productId}, ${value});
 			`) 
 			
 			return res.status(200).json({ message: 'Оценка отправлена!' })
@@ -47,3 +30,7 @@ router.post(
 )
 
 module.exports = router
+
+// INSERT INTO `express_shop`.`order_products` (`id_order`, `id_product`, `quantity`) VALUES 
+// ('1', '1', '1'), 
+  // ('1', '2', '2');
