@@ -6,7 +6,8 @@ import { addToCart } from '../../../actions/modal'
 
 class Catalog extends Component {
 	render() {
-		const { products, addToCart } = this.props 
+		let { products, addToCart } = this.props 
+		products = Object.values(products)
 		
 		return (
 			<main>

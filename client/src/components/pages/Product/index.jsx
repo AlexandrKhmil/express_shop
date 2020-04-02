@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addToCart } from '../../../actions/modal'
 import { loadComments, addComment } from '../../../actions/comment'
+import { addVote } from '../../../actions/product'
 import styles from './styles.module.css'
 
 class Product extends Component {
@@ -38,8 +39,9 @@ class Product extends Component {
 	render() {
 		const { onChange, sendMessage, loadMore } = this
 		const { userComment, commentsLimit } = this.state
-		const { products, user, allComments, addToCart } = this.props
+		let { products, user, allComments, addToCart, addVote } = this.props
 		const { productId } = this.props.match.params
+		products = Object.values(products)
 		const product = products.find(item => item.id === parseInt(productId))
 		const comments = allComments[productId] !== undefined ? Object.values(allComments[productId]) : [] 
 		return (
@@ -56,8 +58,57 @@ class Product extends Component {
 												src={require(`../../../../static/product/${product.imgsrc}`)} 
 												alt="Product"
 											/>
-											<div className="d-flex justify-content-center mt-3">
-												Тут будет рейтинг
+
+											<div className="d-flex justify-content-between align-items-center mt-3"> 
+												<span>Рейтинг:</span>
+												<div className={`d-flex ${styles.starListsWrapper}`}>
+													<span className="mr-2">
+														{product.rating ? product.rating.toFixed(2) : 'Нет'}
+													</span>
+													<div className="d-flex justify-content-center position-relative">
+														<ul className={styles.starList}>
+															<li className={styles.star}><img src={require('../../../../static/other/starGray.svg')} /></li>
+															<li className={styles.star}><img src={require('../../../../static/other/starGray.svg')} /></li>
+															<li className={styles.star}><img src={require('../../../../static/other/starGray.svg')} /></li>
+															<li className={styles.star}><img src={require('../../../../static/other/starGray.svg')} /></li>
+															<li className={styles.star}><img src={require('../../../../static/other/starGray.svg')} /></li>
+														</ul> 
+														{
+															user
+															?	<ul className={`${styles.starList} ${styles.starListColored} ${styles.starListButtons}`}>
+																	{
+																		[5,4,3,2,1].map((voteRating, key) => 
+																			<li className={styles.star} key={key}>
+																				<button 
+																					className={styles.buttonVote} 
+																					onClick={() => { addVote(user.email, product.id, voteRating) }}
+																				> 
+																					<img src={require('../../../../static/other/star.svg')} />
+																				</button>
+																			</li> 
+																		)
+																	}
+																</ul>
+															: null
+														}  
+														<ul className={`${styles.starList} ${styles.starListColored}`}>
+															{
+																(() => {
+																	let normalizedRating = product.rating / 5 * 500
+																	return Array(5).fill(0).map(() => {
+																		let rating = normalizedRating >= 100 ? 100 : normalizedRating
+																		normalizedRating = normalizedRating >= 100 ? normalizedRating - 100 : 0
+																		return rating
+																	})
+																})().map((rating, key) => 
+																	<li className={styles.star} key={key}>
+																		<img src={require('../../../../static/other/star.svg')} style={{ width: `${rating}%` }} />
+																	</li>
+																)
+															}
+														</ul> 
+													</div> 
+												</div> 
 											</div>
 										</div>
 									</div> 
@@ -141,7 +192,7 @@ class Product extends Component {
 													<span className={styles.commentIndx}>#{key + 1}</span>
 													<h4 className="card-title mb-1">{comment.email}:</h4>
 													<span className="small text-primary mb-2">{(() => {
-														let date = product.publicationDate.split('T')[0].split('-')
+														let date = comment.create_time.split('T')[0].split('-')
 														return `${date[2]}.${date[1]}.${date[0]}`	
 													})()}</span>
 													<p className="card-text">
@@ -178,7 +229,7 @@ class Product extends Component {
 const mapStateToProps = state => ({
 	products: state.product.products,
 	user: state.auth.user,
-	allComments: state.comment
+	allComments: state.comment,
 })
 
-export default connect(mapStateToProps, { addToCart, loadComments, addComment })(Product)
+export default connect(mapStateToProps, { addToCart, loadComments, addComment, addVote })(Product)

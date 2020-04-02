@@ -1,4 +1,7 @@
-import { PRODUCTS_LOADED } from '../actions/types'
+import { 
+  PRODUCTS_LOADED, 
+  ADD_VOTE,
+} from '../actions/types'
 
 const initialState = {
   products: []
@@ -11,6 +14,8 @@ export default (state = initialState, action) => {
         ...state,
         products: action.payload,
       }
+    case ADD_VOTE:
+      return state
     default:
       return state
   }

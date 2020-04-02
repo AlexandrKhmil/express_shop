@@ -27,6 +27,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Catalog from './pages/Catalog'
 import Product from './pages/Product'
+import User from './pages/User'
 
 // ALERT OPTIONS
 const alertOptions = {
@@ -56,6 +57,7 @@ class App extends Component {
 						<Alerts /> 
 						<Switch>
 							<Route exact path="/" component={Home} /> 
+							<Route path="/user" component={User} /> 
 							<Route path="/login" component={Login} /> 
 							<Route path="/register" component={Register} />
 							<Route path="/catalog" component={Catalog} />

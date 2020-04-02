@@ -53,9 +53,7 @@ router.post(
 
 			if (userQuery[0].length === 0) {
 				return res.status(400).json({ message: 'Такого пользователя не существует' }) 
-			}
-			
-			console.log(userQuery[0][0].id)
+			} 
 
 			pool.query(`
 					INSERT INTO comment (userId, message, productId) 

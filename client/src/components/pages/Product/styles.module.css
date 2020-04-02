@@ -8,3 +8,59 @@
   top: 15px;
   right: 20px;
 }
+
+.starList {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.starListColored {
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.starListButtons {
+  position: absolute;
+  z-index: 1;
+  direction: rtl;
+}
+
+.starListButtons:hover ~ .starListColored {
+  opacity: 0;
+}
+
+.buttonVote {
+  padding: 0;
+  width: 100%;
+  height: 100%; 
+  background: none;
+  border: none;
+  display: flex; 
+  align-items: center;
+  opacity: 0;
+}
+
+.starList > li:hover button {
+  opacity: 1;
+}
+
+.starList > .star:hover ~ .star button {
+  opacity: 1;
+}
+
+.star {
+  display: flex; 
+  align-items: center;
+  width: 20px;
+  height: 20px; 
+}
+
+.star img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  object-position: left;
+}

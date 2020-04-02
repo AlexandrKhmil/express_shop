@@ -12,10 +12,10 @@ class Header extends Component {
 		const guestLinks = (
 			<>
 				<li className="nav-item">
-					<NavLink className="nav-link" to="/login">Login</NavLink>
+					<NavLink className="nav-link" to="/login">Авторизация</NavLink>
 				</li>
 				<li className="nav-item">
-					<NavLink className="nav-link" to="/register">Register</NavLink>
+					<NavLink className="nav-link" to="/register">Регистрация</NavLink>
 				</li>
 			</>
 		)
@@ -23,7 +23,10 @@ class Header extends Component {
 		const userLinks = (
 			<>
 				<li className="nav-item">
-					<button className="nav-link btn btn-secondary btn-sm text-light mr-3" onClick={logout}>Logout</button>
+					<NavLink className="nav-link" to="/user">Мои заказы</NavLink> 
+				</li>
+				<li className="nav-item">
+					<button className="nav-link btn btn-secondary btn-sm text-light mr-3" onClick={logout}>Выйти</button>
 				</li>
 			</>
 		)
@@ -39,10 +42,10 @@ class Header extends Component {
 						<div className="collapse navbar-collapse" id="header-nav">
 							<ul className="navbar-nav mr-auto">
 								<li className="nav-item">
-									<NavLink className="nav-link" exact to='/'>Home</NavLink>
+									<NavLink className="nav-link" exact to='/'>Главная</NavLink>
 								</li>
 								<li className="nav-item">
-									<NavLink className="nav-link" exact to='/catalog'>Catalog</NavLink>
+									<NavLink className="nav-link" exact to='/catalog'>Каталог</NavLink>
 								</li>
 							</ul>
 							<ul className="navbar-nav ml-auto">
